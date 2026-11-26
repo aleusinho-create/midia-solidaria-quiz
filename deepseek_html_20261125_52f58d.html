@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qual é o seu Nível de Solidariedade? · Blog Mídia Solidária</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green-900:#1b4332;
+    --green-700:#2d6a4f;
+    --green-500:#40916c;
+    --green-300:#95d5b2;
+    --green-100:#d8f3dc;
+    --terra:#e07a5f;
+    --terra-dark:#c05a3f;
+    --cream:#fdf8f3;
+    --sand:#f4e4d0;
+    --text:#1f2937;
+    --muted:#6b7280;
+    --white:#ffffff;
+    --shadow-sm:0 1px 2px rgba(27,67,50,.06),0 2px 8px rgba(27,67,50,.06);
+    --shadow-md:0 4px 12px rgba(27,67,50,.08),0 8px 32px rgba(27,67,50,.08);
+    --shadow-lg:0 8px 24px rgba(27,67,50,.12),0 20px 60px rgba(27,67,50,.12);
+    --radius:24px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    background:var(--cream);
+    color:var(--text);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:24px 16px 48px;
+    position:relative;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before,body::after{
+    content:'';
+    position:fixed;
+    border-radius:50%;
+    filter:blur(60px);
+    pointer-events:none;
+    z-index:0;
+  }
+  body::before{
+    top:-15%;left:-10%;
+    width:55vw;height:55vw;
+    background:radial-gradient(circle,rgba(149,213,178,.35),transparent 70%);
+  }
+  body::after{
+    bottom:-15%;right:-10%;
+    width:45vw;height:45vw;
+    background:radial-gradient(circle,rgba(224,122,95,.2),transparent 70%);
+  }
+  .app{
+    width:100%;
+    max-width:760px;
+    position:relative;
+    z-index:1;
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    margin-bottom:28px;
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:1.05rem;
+    color:var(--green-900);
+    letter-spacing:-.01em;
+  }
+  .brand-dot{
+    width:10px;height:10px;border-radius:50%;
+    background:var(--terra);
+    box-shadow:0 0 0 4px rgba(224,122,95,.18);
+  }
+  .screen{display:none;animation:fadeUp .5s ease both}
+  .screen.active{display:block}
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(16px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  .card{
+    background:var(--white);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow-md);
+    padding:48px 44px;
+    border:1px solid rgba(27,67,50,.06);
+  }
+  @media(max-width:640px){
+    .card{padding:32px 24px;border-radius:20px}
+  }
+
+  /* ---------- INTRO ---------- */
+  .intro-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--green-100);
+    color:var(--green-900);
+    font-size:.8rem;
+    font-weight:600;
+    padding:8px 16px;
+    border-radius:999px;
+    margin-bottom:24px;
+    letter-spacing:.01em;
+  }
+  .intro-badge .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--green-500);
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse{
+    0%,100%{box-shadow:0 0 0 0 rgba(64,145,108,.4)}
+    50%{box-shadow:0 0 0 6px rgba(64,145,108,0)}
+  }
+  .intro h1{
+    font-family:'Fraunces',serif;
+    font-weight:900;
+    font-size:clamp(2rem,5vw,3rem);
+    line-height:1.1;
+    letter-spacing:-.02em;
+    color:var(--green-900);
+    margin-bottom:20px;
+  }
+  .intro h1 em{
+    font-style:italic;
+    color:var(--terra);
+  }
+  .intro .lead{
+    font-size:1.125rem;
+    line-height:1.6;
+    color:var(--muted);
+    margin-bottom:32px;
+    max-width:560px;
+  }
+  .intro-highlights{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin-bottom:36px;
+  }
+  .highlight{
+    background:var(--cream);
+    border-radius:16px;
+    padding:18px 16px;
+    text-align:center;
+    border:1px solid rgba(27,67,50,.06);
+  }
+  .highlight .hi-icon{
+    font-size:1.5rem;
+    margin-bottom:8px;
+    display:block;
+  }
+  .highlight .hi-title{
+    font-weight:600;
+    font-size:.85rem;
+    color:var(--green-900);
+    line-height:1.3;
+  }
+  @media(max-width:640px){
+    .intro-highlights{grid-template-columns:1fr;gap:8px}
+    .highlight{display:flex;align-items:center;gap:12px;padding:12px 16px;text-align:left}
+    .highlight .hi-icon{margin:0;font-size:1.25rem}
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:1rem;
+    padding:16px 28px;
+    border-radius:14px;
+    border:none;
+    cursor:pointer;
+    text-decoration:none;
+    transition:transform .18s ease,box-shadow .18s ease,background .18s ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .btn-primary{
+    background:var(--green-700);
+    color:var(--white);
+    box-shadow:0 4px 14px rgba(45,106,79,.25);
+    width:100%;
+  }
+  .btn-primary:hover{
+    background:var(--green-900);
+    transform:translateY(-2px);
+    box-shadow:0 8px 24px rgba(45,106,79,.35);
+  }
+  .btn-primary:active{transform:translateY(0)}
+  .btn-arrow{
+    transition:transform .2s;
+  }
+  .btn-primary:hover .btn-arrow{transform:translateX(4px)}
+  .intro .microcopy{
+    text-align:center;
+    font-size:.85rem;
+    color:var(--muted);
+    margin-top:16px;
+    line-height:1.5;
+  }
+  .intro .microcopy strong{color:var(--green-700)}
+
+  /* ---------- QUIZ ---------- */
+  .quiz-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:14px;
+    gap:12px;
+  }
+  .progress-text{
+    font-size:.875rem;
+    color:var(--muted);
+    font-weight:500;
+  }
+  .progress-text b{color:var(--green-700);font-weight:700}
+  .back-btn{
+    background:transparent;
+    border:none;
+    color:var(--muted);
+    font-family:'Inter',sans-serif;
+    font-size:.85rem;
+    font-weight:500;
+    cursor:pointer;
+    padding:6px 10px;
+    border-radius:8px;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    transition:background .2s,color .2s;
+  }
+  .back-btn:hover{background:var(--cream);color:var(--green-700)}
+  .progress-bar{
+    width:100%;
+    height:6px;
+    background:var(--cream);
+    border-radius:999px;
+    overflow:hidden;
+    margin-bottom:36px;
+  }
+  .progress-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,var(--green-500),var(--green-700));
+    border-radius:999px;
+    transition:width .45s cubic-bezier(.4,0,.2,1);
+  }
+  .question-body{
+    animation:slideIn .4s ease both;
+  }
+  @keyframes slideIn{
+    from{opacity:0;transform:translateX(24px)}
+    to{opacity:1;transform:translateX(0)}
+  }
+  .theme-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:var(--green-100);
+    color:var(--green-900);
+    font-size:.78rem;
+    font-weight:600;
+    padding:6px 14px;
+    border-radius:999px;
+    margin-bottom:16px;
+    letter-spacing:.01em;
+  }
+  .question-text{
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:clamp(1.375rem,3vw,1.75rem);
+    line-height:1.3;
+    letter-spacing:-.015em;
+    color:var(--green-900);
+    margin-bottom:28px;
+  }
+  .options{display:flex;flex-direction:column;gap:10px}
+  .option{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    width:100%;
+    text-align:left;
+    background:var(--white);
+    border:2px solid var(--cream);
+    border-radius:16px;
+    padding:16px 18px;
+    cursor:pointer;
+    font-family:'Inter',sans-serif;
+    font-size:.95rem;
+    line-height:1.45;
+    color:var(--text);
+    transition:all .2s ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .option:hover{
+    border-color:var(--green-300);
+    background:rgba(216,243,220,.25);
+    transform:translateX(2px);
+  }
+  .option-letter{
+    flex-shrink:0;
+    width:34px;
+    height:34px;
+    border-radius:10px;
+    background:var(--cream);
+    color:var(--green-700);
+    font-weight:700;
+    font-size:.85rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:all .2s;
+  }
+  .option:hover .option-letter{
+    background:var(--green-100);
+  }
+  .option.selected{
+    border-color:var(--green-700);
+    background:var(--green-100);
+    transform:translateX(4px);
+  }
+  .option.selected .option-letter{
+    background:var(--green-700);
+    color:var(--white);
+  }
+  .option.dimmed{
+    opacity:.4;
+    pointer-events:none;
+  }
+  .option-text{flex:1}
+
+  /* ---------- RESULT ---------- */
+  .result-hero{
+    display:flex;
+    align-items:center;
+    gap:28px;
+    margin-bottom:28px;
+  }
+  @media(max-width:640px){
+    .result-hero{flex-direction:column;text-align:center;gap:20px}
+  }
+  .gauge-wrap{
+    position:relative;
+    width:150px;
+    height:150px;
+    flex-shrink:0;
+  }
+  .gauge-wrap svg{
+    width:100%;
+    height:100%;
+    transform:rotate(-90deg);
+  }
+  .gauge-bg{
+    fill:none;
+    stroke:var(--cream);
+    stroke-width:14;
+  }
+  .gauge-fill{
+    fill:none;
+    stroke:url(#gaugeGradient);
+    stroke-width:14;
+    stroke-linecap:round;
+    transition:stroke-dashoffset 1.6s cubic-bezier(.4,0,.2,1);
+  }
+  .gauge-label{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    font-family:'Fraunces',serif;
+  }
+  .gauge-score{
+    font-size:2.25rem;
+    font-weight:900;
+    color:var(--green-900);
+    line-height:1;
+    letter-spacing:-.03em;
+  }
+  .gauge-max{
+    font-family:'Inter',sans-serif;
+    font-size:.75rem;
+    color:var(--muted);
+    font-weight:500;
+    margin-top:2px;
+  }
+  .result-headline{flex:1}
+  .level-badge{
+    display:inline-block;
+    background:var(--terra);
+    color:var(--white);
+    font-size:.75rem;
+    font-weight:700;
+    padding:5px 12px;
+    border-radius:999px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    margin-bottom:10px;
+  }
+  .result-headline h2{
+    font-family:'Fraunces',serif;
+    font-weight:900;
+    font-size:clamp(1.75rem,4vw,2.5rem);
+    line-height:1.1;
+    letter-spacing:-.02em;
+    color:var(--green-900);
+    margin-bottom:6px;
+  }
+  .result-headline .tagline{
+    font-size:1rem;
+    color:var(--muted);
+    font-weight:500;
+    font-style:italic;
+  }
+  .result-description{
+    font-size:1.05rem;
+    line-height:1.65;
+    color:var(--text);
+    margin-bottom:28px;
+    padding:20px 24px;
+    background:var(--cream);
+    border-radius:16px;
+    border-left:4px solid var(--green-500);
+  }
+  .result-section{margin-bottom:28px}
+  .result-section h3{
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:1.15rem;
+    color:var(--green-900);
+    margin-bottom:14px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:var(--green-100);
+    color:var(--green-900);
+    font-size:.85rem;
+    font-weight:600;
+    padding:8px 14px;
+    border-radius:999px;
+  }
+  .steps{list-style:none;display:flex;flex-direction:column;gap:10px}
+  .steps li{
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+    font-size:.95rem;
+    line-height:1.55;
+    color:var(--text);
+    padding:14px 16px;
+    background:var(--cream);
+    border-radius:14px;
+  }
+  .steps li .num{
+    flex-shrink:0;
+    width:26px;
+    height:26px;
+    border-radius:50%;
+    background:var(--green-700);
+    color:var(--white);
+    font-weight:700;
+    font-size:.8rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  /* Email capture */
+  .email-capture{
+    background:linear-gradient(135deg,var(--green-900),var(--green-700));
+    border-radius:20px;
+    padding:28px 24px;
+    margin-bottom:24px;
+    color:var(--white);
+  }
+  .email-capture h3{
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:1.2rem;
+    margin-bottom:6px;
+  }
+  .email-capture p{
+    font-size:.9rem;
+    opacity:.85;
+    line-height:1.5;
+    margin-bottom:18px;
+  }
+  .email-form{
+    display:flex;
+    gap:8px;
+  }
+  @media(max-width:520px){
+    .email-form{flex-direction:column}
+  }
+  .email-form input{
+    flex:1;
+    padding:14px 16px;
+    border-radius:12px;
+    border:none;
+    font-family:'Inter',sans-serif;
+    font-size:.95rem;
+    background:rgba(255,255,255,.95);
+    color:var(--text);
+    outline:none;
+  }
+  .email-form input:focus{
+    box-shadow:0 0 0 3px rgba(255,255,255,.4);
+  }
+  .email-form button{
+    background:var(--terra);
+    color:var(--white);
+    border:none;
+    padding:14px 22px;
+    border-radius:12px;
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:.95rem;
+    cursor:pointer;
+    transition:all .2s;
+    white-space:nowrap;
+  }
+  .email-form button:hover{background:var(--terra-dark);transform:translateY(-1px)}
+  .email-success{
+    display:none;
+    align-items:center;
+    gap:10px;
+    background:rgba(255,255,255,.15);
+    padding:14px 18px;
+    border-radius:12px;
+    font-size:.95rem;
+    font-weight:500;
+  }
+  .email-success.show{display:flex}
+
+  /* CTAs */
+  .cta-stack{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom:24px;
+  }
+  .btn-secondary{
+    background:var(--green-100);
+    color:var(--green-900);
+    width:100%;
+  }
+  .btn-secondary:hover{background:var(--green-300);transform:translateY(-1px)}
+  .btn-outline{
+    background:var(--white);
+    color:var(--green-700);
+    border:2px solid var(--green-100);
+    width:100%;
+  }
+  .btn-outline:hover{border-color:var(--green-500);background:var(--green-100)}
+
+  /* Share */
+  .share{
+    border-top:1px solid var(--cream);
+    padding-top:24px;
+    margin-bottom:16px;
+  }
+  .share p{
+    font-size:.85rem;
+    font-weight:600;
+    color:var(--muted);
+    margin-bottom:12px;
+    text-align:center;
+  }
+  .share-buttons{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .share-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:var(--cream);
+    border:none;
+    padding:10px 16px;
+    border-radius:10px;
+    font-family:'Inter',sans-serif;
+    font-size:.85rem;
+    font-weight:600;
+    color:var(--green-900);
+    cursor:pointer;
+    transition:all .2s;
+  }
+  .share-btn:hover{background:var(--green-100);transform:translateY(-1px)}
+  .restart{
+    display:block;
+    width:100%;
+    background:transparent;
+    border:none;
+    color:var(--muted);
+    font-family:'Inter',sans-serif;
+    font-size:.85rem;
+    font-weight:500;
+    cursor:pointer;
+    padding:12px;
+    border-radius:10px;
+    transition:all .2s;
+  }
+  .restart:hover{background:var(--cream);color:var(--green-700)}
+
+  .footer{
+    text-align:center;
+    font-size:.8rem;
+    color:var(--muted);
+    margin-top:28px;
+    line-height:1.6;
+  }
+  .footer strong{color:var(--green-700);font-weight:600}
+
+  @media(max-width:640px){
+    body{padding:16px 12px 32px}
+    .brand{font-size:.95rem;margin-bottom:20px}
+    .card{padding:28px 20px}
+    .option{padding:14px 14px;font-size:.9rem;gap:12px}
+    .option-letter{width:30px;height:30px;font-size:.8rem}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="brand">
+    <span class="brand-dot"></span>
+    Blog Mídia Solidária
+  </div>
+
+  <!-- ================= INTRO ================= -->
+  <section id="intro" class="screen active">
+    <div class="card intro">
+      <span class="intro-badge"><span class="dot"></span> Diagnóstico interativo · 4 minutos</span>
+      <h1>Qual é o seu <em>Nível de Solidariedade</em>?</h1>
+      <p class="lead">Responda 12 perguntas e descubra seu mapa na Economia Popular e Solidária, no cooperativismo e no associativismo — com recomendações práticas para o seu próximo passo.</p>
+
+      <div class="intro-highlights">
+        <div class="highlight">
+          <span class="hi-icon">🤝</span>
+          <span class="hi-title">Princípios<br>solidários</span>
+        </div>
+        <div class="highlight">
+          <span class="hi-icon">🌱</span>
+          <span class="hi-title">Perfil<br>personalizado</span>
+        </div>
+        <div class="highlight">
+          <span class="hi-icon">🎯</span>
+          <span class="hi-title">Próximos<br>passos práticos</span>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="startQuiz()">
+        Começar meu diagnóstico
+        <span class="btn-arrow">→</span>
+      </button>
+      <p class="microcopy">Não existe resposta certa. Escolha a opção que mais se aproxima da <strong>sua realidade</strong>. Leva só 4 minutos.</p>
+    </div>
+  </section>
+
+  <!-- ================= QUIZ ================= -->
+  <section id="quiz" class="screen">
+    <div class="card">
+      <div class="quiz-header">
+        <span class="progress-text">Pergunta <b id="currentNum">1</b> de 12</span>
+        <button class="back-btn" onclick="goBack()">← Voltar</button>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="question-body" id="questionBody">
+        <span class="theme-tag" id="themeTag">🤝 Cooperação</span>
+        <h2 class="question-text" id="questionText"></h2>
+        <div class="options" id="optionsContainer"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= RESULT ================= -->
+  <section id="result" class="screen">
+    <div class="card">
+      <div class="result-hero">
+        <div class="gauge-wrap">
+          <svg viewBox="0 0 200 200">
+            <defs>
+              <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#95d5b2"/>
+                <stop offset="100%" stop-color="#2d6a4f"/>
+              </linearGradient>
+            </defs>
+            <circle class="gauge-bg" cx="100" cy="100" r="85"/>
+            <circle class="gauge-fill" id="gaugeFill" cx="100" cy="100" r="85"/>
+          </svg>
+          <div class="gauge-label">
+            <span class="gauge-score" id="gaugeScore">0</span>
+            <span class="gauge-max">de 48 pts</span>
+          </div>
+        </div>
+        <div class="result-headline">
+          <span class="level-badge" id="levelBadge">Nível 1</span>
+          <h2 id="levelName">Semente Solidária</h2>
+          <p class="tagline" id="levelTagline">Curioso em Descoberta</p>
+        </div>
+      </div>
+
+      <p class="result-description" id="levelDescription"></p>
+
+      <div class="result-section">
+        <h3>✨ Suas forças principais</h3>
+        <div class="chips" id="strengthChips"></div>
+      </div>
+
+      <div class="result-section">
+        <h3>🎯 Seu próximo passo recomendado</h3>
+        <ul class="steps" id="nextSteps"></ul>
+      </div>
+
+      <div class="email-capture" id="emailCapture">
+        <h3>📬 Receba seu Mapa Solidário</h3>
+        <p>Deixe seu e-mail para receber o resultado completo em PDF e conteúdos exclusivos do Blog Mídia Solidária.</p>
+        <form class="email-form" id="emailForm" onsubmit="submitEmail(event)">
+          <input type="email" id="emailInput" placeholder="seu@email.com" required>
+          <button type="submit">Quero meu mapa →</button>
+        </form>
+        <div class="email-success" id="emailSuccess">
+          <span>✓</span> Pronto! Em instantes você receberá seu mapa solidário.
+        </div>
+      </div>
+
+      <div class="cta-stack">
+        <a href="#" class="btn btn-primary">Assinar o Blog Mídia Solidária <span class="btn-arrow">→</span></a>
+        <a href="#" class="btn btn-secondary">Conhecer a Campanha Mídia Solidária</a>
+        <a href="#" class="btn btn-outline">Falar com a Mídia Sol Mktg Solidário</a>
+      </div>
+
+      <div class="share">
+        <p>Compartilhe seu resultado</p>
+        <div class="share-buttons">
+          <button class="share-btn" onclick="shareWhatsApp()">💬 WhatsApp</button>
+          <button class="share-btn" onclick="shareLinkedIn()">💼 LinkedIn</button>
+          <button class="share-btn" onclick="copyLink()">🔗 Copiar link</button>
+        </div>
+      </div>
+
+      <button class="restart" onclick="restart()">↺ Refazer o quiz</button>
+    </div>
+  </section>
+
+  <p class="footer">Feito com 💚 pela <strong>Mídia Sol Mktg Solidário</strong><br>Economia Popular e Solidária · Cooperativismo · Associativismo</p>
+</div>
+
+<script>
+/* ================= DADOS ================= */
+const questions = [
+  { theme:'🤝 Cooperação', text:'Em trabalhos em grupo, o que mais se aproxima de você?',
+    options:[
+      {text:'Prefiro fazer sozinho para garantir o resultado.', points:1},
+      {text:'Ajudo quando sou solicitado.', points:2},
+      {text:'Gosto de dividir tarefas e decisões.', points:3},
+      {text:'Incentivo o grupo a definir junto metas e responsabilidades.', points:4}
+    ]},
+  { theme:'🗳️ Autogestão', text:'Em um coletivo ou cooperativa, decisões importantes devem ser tomadas por:',
+    options:[
+      {text:'Uma liderança experiente.', points:1},
+      {text:'Coordenação com consulta pontual.', points:2},
+      {text:'Votação em assembleia.', points:3},
+      {text:'Processos circulares, com transparência e prestação de contas.', points:4}
+    ]},
+  { theme:'🛒 Consumo consciente', text:'Na hora de comprar, você prioriza:',
+    options:[
+      {text:'Preço e praticidade, sem considerar a origem.', points:1},
+      {text:'Ocasionalmente produtos locais.', points:2},
+      {text:'Produtos de cooperativas e negócios solidários quando possível.', points:3},
+      {text:'O consumo consciente como critério habitual e divulgo essas alternativas.', points:4}
+    ]},
+  { theme:'🌱 Associativismo', text:'Sua relação com cooperativas e associações é:',
+    options:[
+      {text:'Não conheço ou não participo.', points:1},
+      {text:'Já ouvi falar, mas não me envolvo.', points:2},
+      {text:'Participo eventualmente de feiras, grupos ou encontros.', points:3},
+      {text:'Sou membro ativo, apoiador recorrente ou articulador.', points:4}
+    ]},
+  { theme:'⚖️ Justiça social', text:'Para você, as sobras e resultados de um empreendimento coletivo devem:',
+    options:[
+      {text:'Ficar com quem investiu mais.', points:1},
+      {text:'Ser distribuídas conforme decisão da diretoria.', points:2},
+      {text:'Ser partilhadas com critérios acordados coletivamente.', points:3},
+      {text:'Priorizar justiça social, fundo coletivo e transparência.', points:4}
+    ]},
+  { theme:'🔄 Reciprocidade', text:'Quando você aprende algo útil, você:',
+    options:[
+      {text:'Guarda para si.', points:1},
+      {text:'Compartilha se alguém pedir.', points:2},
+      {text:'Compartilha com pessoas próximas.', points:3},
+      {text:'Cria espaços de troca e formação para multiplicar.', points:4}
+    ]},
+  { theme:'🌍 Sustentabilidade', text:'Suas escolhas cotidianas consideram o impacto ambiental?',
+    options:[
+      {text:'Raramente.', points:1},
+      {text:'Às vezes.', points:2},
+      {text:'Frequentemente.', points:3},
+      {text:'Sempre que possível e influencio coletivos.', points:4}
+    ]},
+  { theme:'💬 Diálogo e conflitos', text:'Diante de um conflito no grupo, você:',
+    options:[
+      {text:'Evita ou impõe sua posição.', points:1},
+      {text:'Espera alguém resolver.', points:2},
+      {text:'Conversa para buscar acordo.', points:3},
+      {text:'Facilita mediação e acordos restaurativos.', points:4}
+    ]},
+  { theme:'🔍 Transparência', text:'A comunicação em coletivos deve ser:',
+    options:[
+      {text:'Restrita à liderança.', points:1},
+      {text:'Informada apenas no fim.', points:2},
+      {text:'Compartilhada nas reuniões.', points:3},
+      {text:'Transparente, acessível e com prestação de contas contínua.', points:4}
+    ]},
+  { theme:'🏘️ Apoio local', text:'Você apoia iniciativas solidárias da sua comunidade?',
+    options:[
+      {text:'Não costumo acompanhar.', points:1},
+      {text:'Quando lembro, curto e compartilho.', points:2},
+      {text:'Compro ou participo eventualmente.', points:3},
+      {text:'Apoio, divulgo e articulo parcerias.', points:4}
+    ]},
+  { theme:'📣 Comunicação solidária', text:'Seu negócio ou projeto comunica seus valores solidários?',
+    options:[
+      {text:'Não comunico.', points:1},
+      {text:'Comunico de forma improvisada.', points:2},
+      {text:'Tenho algumas ações de comunicação.', points:3},
+      {text:'Uso a comunicação como estratégia de mobilização e venda solidária.', points:4}
+    ]},
+  { theme:'✊ Engajamento', text:'Seu envolvimento com a Economia Solidária hoje é:',
+    options:[
+      {text:'Nenhum.', points:1},
+      {text:'Curiosidade inicial.', points:2},
+      {text:'Prática pessoal ou coletiva.', points:3},
+      {text:'Liderança, formação ou advocacy.', points:4}
+    ]}
+];
+
+const levels = [
+  { min:12, max:20, number:1, name:'Semente Solidária', tagline:'Curioso em Descoberta',
+    description:'Você está no começo da aproximação com a Economia Popular e Solidária. Seu potencial é grande: pequenas escolhas já podem abrir portas para redes mais justas, cooperativas e sustentáveis.',
+    steps:[
+      'Assine o Blog Mídia Solidária e receba conteúdos introdutórios.',
+      'Leia o artigo "O que é Economia Popular e Solidária?".',
+      'Visite uma feira ou cooperativa local.',
+      'Comece a observar a origem do que você consome.'
+    ]},
+  { min:21, max:27, number:2, name:'Broto Cooperativo', tagline:'Simpatizante em Prática Inicial',
+    description:'Você já reconhece os valores da cooperação e do associativismo, mas ainda está testando como colocá-los no cotidiano. Seu próximo passo é transformar curiosidade em participação.',
+    steps:[
+      'Participe de um grupo, feira ou assembleia.',
+      'Conheça a Campanha Mídia Solidária.',
+      'Indique uma pessoa para este quiz.',
+      'Experimente um consumo mais consciente.'
+    ]},
+  { min:28, max:34, number:3, name:'Rede em Ação', tagline:'Participante Ativo',
+    description:'Você já pratica vários princípios da Economia Solidária: cooperação, consumo consciente e apoio local. Agora o foco é fortalecer a comunicação e a gestão do seu projeto ou coletivo.',
+    steps:[
+      'Aprofunde autogestão e prestação de contas.',
+      'Use o marketing solidário para dar visibilidade ao seu negócio.',
+      'Participe da Campanha Mídia Solidária.',
+      'Compartilhe seu resultado nas redes.'
+    ]},
+  { min:35, max:41, number:4, name:'Agente de Transformação', tagline:'Articulador de Rede',
+    description:'Você é uma pessoa que conecta pessoas, valores e práticas. Já exerce liderança cooperativa e pode ajudar outras iniciativas a crescer com comunicação, gestão e articulação.',
+    steps:[
+      'Agende um diagnóstico com a Mídia Sol Mktg Solidário.',
+      'Leve sua iniciativa para a Campanha Mídia Solidária.',
+      'Compartilhe seu case no Blog Mídia Solidária.',
+      'Mentore alguém que está no nível Semente.'
+    ]},
+  { min:42, max:48, number:5, name:'Referência Solidária', tagline:'Guardião do Bem Viver',
+    description:'Seu engajamento é consistente e transformador. Você já inspira outras pessoas e pode se tornar embaixador da Economia Solidária, conectando comunicação, cooperativismo e impacto comunitário.',
+    steps:[
+      'Seja embaixador da Campanha Mídia Solidária.',
+      'Construa uma parceria com a Mídia Sol Mktg Solidário.',
+      'Publique seu case no Blog Mídia Solidária.',
+      'Ajude a formar novas redes cooperativas.'
+    ]}
+];
+
+/* ================= ESTADO ================= */
+const state = { current:0, answers:[], themeScores:{} };
+const CIRCUMFERENCE = 2 * Math.PI * 85;
+
+/* ================= NAVEGAÇÃO ================= */
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function startQuiz(){
+  state.current = 0;
+  state.answers = new Array(questions.length).fill(null);
+  state.themeScores = {};
+  showScreen('quiz');
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const q = questions[state.current];
+  document.getElementById('currentNum').textContent = state.current + 1;
+  document.getElementById('progressFill').style.width = ((state.current) / questions.length * 100) + '%';
+  document.getElementById('themeTag').textContent = q.theme;
+  document.getElementById('questionText').textContent = q.text;
+
+  const container = document.getElementById('optionsContainer');
+  container.innerHTML = '';
+  const letters = ['A','B','C','D'];
+
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    btn.innerHTML = `<span class="option-letter">${letters[i]}</span><span class="option-text">${opt.text}</span>`;
+    btn.onclick = () => selectOption(i, opt.points, btn);
+    container.appendChild(btn);
+  });
+
+  // reanimação
+  const body = document.getElementById('questionBody');
+  body.style.animation = 'none';
+  void body.offsetWidth;
+  body.style.animation = 'slideIn .4s ease both';
+}
+
+function selectOption(index, points, btn){
+  // desabilita todas
+  document.querySelectorAll('.option').forEach(o => {
+    if(o !== btn) o.classList.add('dimmed');
+  });
+  btn.classList.add('selected');
+
+  state.answers[state.current] = { index, points };
+  document.getElementById('progressFill').style.width = ((state.current + 1) / questions.length * 100) + '%';
+
+  setTimeout(() => {
+    if(state.current < questions.length - 1){
+      state.current++;
+      renderQuestion();
+    } else {
+      showResult();
+    }
+  }, 420);
+}
+
+function goBack(){
+  if(state.current === 0){ showScreen('intro'); return; }
+  state.current--;
+  renderQuestion();
+}
+
+/* ================= RESULTADO ================= */
+function showResult(){
+  // calcula pontuação
+  let score = 0;
+  const themeScores = {};
+
+  state.answers.forEach((ans, i) => {
+    if(!ans) return;
+    score += ans.points;
+    const theme = questions[i].theme.replace(/^[^\s]+\s/, '');
+    themeScores[theme] = (themeScores[theme] || 0) + ans.points;
+  });
+
+  const level = levels.find(l => score >= l.min && score <= l.max) || levels[0];
+
+  // preenche resultado
+  document.getElementById('levelBadge').textContent = 'Nível ' + level.number;
+  document.getElementById('levelName').textContent = level.name;
+  document.getElementById('levelTagline').textContent = level.tagline;
+  document.getElementById('levelDescription').textContent = level.description;
+
+  // top 3 forças
+  const sorted = Object.entries(themeScores).sort((a,b) => b[1] - a[1]).slice(0,3);
+  const icons = {
+    'Cooperação':'🤝','Autogestão':'🗳️','Consumo consciente':'🛒','Associativismo':'🌱',
+    'Justiça social':'⚖️','Reciprocidade':'🔄','Sustentabilidade':'🌍','Diálogo e conflitos':'💬',
+    'Transparência':'🔍','Apoio local':'🏘️','Comunicação solidária':'📣','Engajamento':'✊'
+  };
+  document.getElementById('strengthChips').innerHTML = sorted.map(([t]) =>
+    `<span class="chip">${icons[t] || '✨'} ${t}</span>`
+  ).join('');
+
+  // próximos passos
+  document.getElementById('nextSteps').innerHTML = level.steps.map((s,i) =>
+    `<li><span class="num">${i+1}</span><span>${s}</span></li>`
+  ).join('');
+
+  showScreen('result');
+
+  // anima gauge
+  const gauge = document.getElementById('gaugeFill');
+  gauge.style.strokeDasharray = CIRCUMFERENCE;
+  gauge.style.strokeDashoffset = CIRCUMFERENCE;
+  const percent = Math.max(0, Math.min(1, (score - 12) / (48 - 12)));
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      gauge.style.strokeDashoffset = CIRCUMFERENCE * (1 - percent);
+    }, 200);
+  });
+
+  // anima contador
+  animateScore(score);
+
+  // guarda para compartilhar
+  window._lastResult = { score, level };
+}
+
+function animateScore(target){
+  const el = document.getElementById('gaugeScore');
+  const duration = 1400;
+  const start = performance.now();
+  function tick(now){
+    const t = Math.min(1, (now - start) / duration);
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.round(target * eased);
+    if(t < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+/* ================= EMAIL ================= */
+function submitEmail(e){
+  e.preventDefault();
+  const email = document.getElementById('emailInput').value.trim();
+  if(!email) return;
+  document.getElementById('emailForm').style.display = 'none';
+  document.getElementById('emailSuccess').classList.add('show');
+  // aqui você integraria com sua ferramenta de e-mail (RD Station, Mailchimp, etc.)
+  console.log('E-mail capturado:', email);
+}
+
+/* ================= COMPARTILHAR ================= */
+function shareWhatsApp(){
+  const r = window._lastResult;
+  if(!r) return;
+  const text = encodeURIComponent(`Descobri meu Nível de Solidariedade: ${r.level.name} (${r.score}/48). Faça o quiz você também! 💚`);
+  window.open(`https://wa.me/?text=${text}`, '_blank');
+}
+
+function shareLinkedIn(){
+  const r = window._lastResult;
+  if(!r) return;
+  const url = encodeURIComponent(window.location.href);
+  window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+}
+
+function copyLink(){
+  navigator.clipboard.writeText(window.location.href).then(() => {
+    const btns = document.querySelectorAll('.share-btn');
+    const btn = btns[2];
+    const original = btn.textContent;
+    btn.textContent = '✓ Copiado!';
+    setTimeout(() => btn.textContent = original, 1800);
+  });
+}
+
+function restart(){
+  showScreen('intro');
+}
+
+/* ================= TECLADO ================= */
+document.addEventListener('keydown', (e) => {
+  if(!document.getElementById('quiz').classList.contains('active')) return;
+  if(['1','2','3','4'].includes(e.key)){
+    const opts = document.querySelectorAll('.option');
+    const target = opts[parseInt(e.key) - 1];
+    if(target && !target.classList.contains('dimmed')) target.click();
+  }
+  if(e.key === 'Backspace'){ goBack(); }
+});
+</script>
+</body>
+</html>

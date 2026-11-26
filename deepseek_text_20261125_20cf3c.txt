@@ -1,0 +1,5 @@
+12-20: Nível 1 (Semente)
+21-27: Nível 2 (Broto)
+28-34: Nível 3 (Rede)
+35-41: Nível 4 (Agente)
+42-48: Nível 5 (Referência)
